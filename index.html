@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Drive with TVA Logistics</title>
+<meta name="description" content="You applied to TVA Logistics — here's what's next. Tap to finish your application.">
+<meta name="theme-color" content="#0c0d10">
+
+<!-- Link preview (SMS / social) -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Drive with TVA Logistics">
+<meta property="og:description" content="You applied — here's what happens next. Tap to finish your application.">
+<meta property="og:image" content="https://drive.tvalogistics.com/poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Drive with TVA Logistics">
+<meta name="twitter:description" content="You applied — here's what happens next. Tap to finish your application.">
+<meta name="twitter:image" content="https://drive.tvalogistics.com/poster.jpg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap">
+<style>
+  :root{
+    --accent:#ce241c;
+    --road:#0c0d10;
+    --screen-ink:#f6f3ee;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    background:#000;
+    color:var(--screen-ink);
+    font-family:"Barlow",system-ui,-apple-system,sans-serif;
+    line-height:1.4;
+    display:flex;
+    justify-content:center;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* full-screen vertical story; locked to 9:16 on wide screens, full-bleed on phones */
+  .story{
+    position:relative;
+    width:min(100vw, calc(100dvh * 9 / 16));
+    height:100dvh;
+    overflow:hidden;
+    background:var(--road);
+    isolation:isolate;
+  }
+
+  .bgvid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;background:#0c0d10}
+  .vhaze{position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:linear-gradient(180deg,rgba(0,0,0,.30) 0%,transparent 20% 50%,rgba(0,0,0,.55) 100%)}
+
+  /* story progress bars */
+  .bars{position:absolute;top:max(12px,env(safe-area-inset-top));left:12px;right:12px;z-index:5;display:flex;gap:4px}
+  .bar{flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,.32);overflow:hidden}
+  .bar>i{display:block;height:100%;width:0;background:#fff;border-radius:2px}
+  .bar.done>i{width:100%}
+  .bar.active>i{animation:fill 3s linear forwards}
+  @keyframes fill{from{width:0}to{width:100%}}
+
+  /* header */
+  .head{
+    position:absolute;top:calc(24px + env(safe-area-inset-top));left:12px;right:12px;z-index:5;
+    display:flex;align-items:center;gap:9px;
+  }
+  .avatar{
+    width:36px;height:36px;border-radius:50%;flex:none;
+    background:var(--accent);color:#fff;
+    display:grid;place-items:center;
+    font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:15px;
+    box-shadow:0 0 0 2px rgba(255,255,255,.85);
+  }
+  .who{display:flex;flex-direction:column;line-height:1.1;flex:1;min-width:0}
+  .who b{font-size:15px;font-weight:600}
+  .who span{font-size:11px;color:rgba(246,243,238,.72)}
+  .icon-btn{
+    appearance:none;border:0;background:rgba(0,0,0,.25);color:#fff;
+    width:38px;height:38px;display:grid;place-items:center;
+    cursor:pointer;border-radius:50%;line-height:0;
+  }
+  .icon-btn:focus-visible{outline:2px solid #fff;outline-offset:2px}
+
+  /* burned-in caption (works on mute) */
+  .caption{
+    position:absolute;left:20px;right:20px;bottom:168px;z-index:4;
+    font-family:"Barlow Condensed",sans-serif;font-weight:700;
+    font-size:clamp(30px,9vw,40px);line-height:1.0;
+    text-transform:uppercase;letter-spacing:.005em;
+    text-shadow:0 2px 16px rgba(0,0,0,.65);
+    text-wrap:balance;
+  }
+  .caption em{font-style:normal;color:#ffcf46}
+
+  /* tappable CTA */
+  .cta-wrap{position:absolute;left:0;right:0;bottom:calc(30px + env(safe-area-inset-bottom));z-index:6;
+    display:flex;flex-direction:column;align-items:center;gap:12px}
+  .swipe{display:flex;flex-direction:column;align-items:center;gap:2px;color:#fff;opacity:.92}
+  .chev{width:24px;height:24px;animation:bob 1.5s ease-in-out infinite}
+  .swipe small{font-size:11px;letter-spacing:.04em;text-transform:uppercase}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+  .sticker{
+    display:inline-flex;align-items:center;gap:11px;
+    background:#fff;color:#141414;text-decoration:none;
+    padding:15px 24px;border-radius:16px;font-weight:600;font-size:17px;
+    box-shadow:0 12px 30px -10px rgba(0,0,0,.65);
+    transition:transform .12s ease;
+  }
+  .sticker .lk{
+    width:28px;height:28px;border-radius:8px;flex:none;
+    background:var(--accent);color:#fff;display:grid;place-items:center;
+  }
+  .sticker:active{transform:scale(.96)}
+  .sticker:focus-visible{outline:3px solid #fff;outline-offset:3px}
+
+  @media (prefers-reduced-motion:reduce){
+    .chev{animation:none}
+    .bar.active>i{animation:none;width:60%}
+  }
+</style>
+</head>
+<body>
+  <main class="story">
+    <video class="bgvid" src="truck.mp4" autoplay muted loop playsinline aria-hidden="true"></video>
+    <div class="vhaze" aria-hidden="true"></div>
+
+    <div class="bars" aria-hidden="true">
+      <div class="bar"><i></i></div>
+      <div class="bar"><i></i></div>
+      <div class="bar"><i></i></div>
+      <div class="bar"><i></i></div>
+    </div>
+
+    <div class="head">
+      <div class="avatar">TVA</div>
+      <div class="who"><b>TVA Logistics</b><span>Now</span></div>
+      <button class="icon-btn" id="mute" aria-label="Turn sound on" aria-pressed="true">
+        <svg id="mIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M11 5 6 9H3v6h3l5 4z"/><line x1="22" y1="9" x2="16" y2="15"/><line x1="16" y1="9" x2="22" y2="15"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="caption" id="cap">You just applied to <em>TVA&nbsp;Logistics.</em></div>
+
+    <div class="cta-wrap">
+      <div class="swipe" aria-hidden="true">
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 15 6-6 6 6"/></svg>
+        <small>Tap to continue</small>
+      </div>
+      <!-- CHANGE THIS href to your IntelliApp / application link -->
+      <a class="sticker" id="cta" href="https://tvalogistics.com/drive">
+        <span class="lk" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg>
+        </span>
+        Finish your application
+      </a>
+    </div>
+  </main>
+
+<script>
+  (function(){
+    var caps = [
+      'You just applied to <em>TVA&nbsp;Logistics.</em>',
+      'It’s a <em>W-2</em> job — taxes &amp; benefits handled.',
+      'Real <em>home time.</em> Newer trucks.',
+      'Keep your phone on — <em>a recruiter’s calling.</em>'
+    ];
+    var cap = document.getElementById('cap');
+    var bars = Array.prototype.slice.call(document.querySelectorAll('.bar'));
+    var reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
+    var i = 0;
+    function paint(){
+      cap.innerHTML = caps[i];
+      bars.forEach(function(b,n){
+        b.classList.toggle('done', n < i);
+        b.classList.remove('active');
+        void b.offsetWidth;
+        if(n === i) b.classList.add('active');
+      });
+    }
+    paint();
+    if(!reduce){ setInterval(function(){ i = (i+1) % caps.length; paint(); }, 3000); }
+
+    // sound toggle — actually unmutes the video
+    var vid = document.querySelector('.bgvid');
+    var btn = document.getElementById('mute');
+    var mIcon = document.getElementById('mIcon');
+    var on = false; // starts muted for autoplay
+    btn.addEventListener('click', function(){
+      on = !on;
+      vid.muted = !on;
+      if(on){ vid.play(); }
+      btn.setAttribute('aria-pressed', String(!on));
+      btn.setAttribute('aria-label', on ? 'Turn sound off' : 'Turn sound on');
+      mIcon.innerHTML = on
+        ? '<path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/>'
+        : '<path d="M11 5 6 9H3v6h3l5 4z"/><line x1="22" y1="9" x2="16" y2="15"/><line x1="16" y1="9" x2="22" y2="15"/>';
+    });
+  })();
+</script>
+</body>
+</html>
