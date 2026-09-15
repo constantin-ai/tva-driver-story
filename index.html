@@ -63,9 +63,10 @@
 
   /* header */
   .head{
-    position:absolute;top:calc(24px + env(safe-area-inset-top));left:12px;right:12px;z-index:5;
-    display:flex;align-items:center;gap:9px;
+    position:absolute;top:calc(24px + env(safe-area-inset-top));left:16px;right:12px;z-index:5;
+    display:flex;align-items:center;justify-content:space-between;gap:9px;
   }
+  .brand{height:42px;width:auto;display:block;filter:drop-shadow(0 1px 6px rgba(0,0,0,.5))}
   .avatar{
     width:38px;height:38px;border-radius:50%;flex:none;
     background:#0d0d0d;
@@ -134,15 +135,7 @@
     </div>
 
     <div class="head">
-      <div class="avatar" aria-hidden="true">
-        <svg viewBox="0 0 48 48" fill="none" stroke="#e11f26" stroke-linecap="round">
-          <line x1="11" y1="34" x2="20.5" y2="14" stroke-width="3"/>
-          <line x1="17.5" y1="34" x2="27" y2="14" stroke-width="3"/>
-          <line x1="24" y1="34" x2="33.5" y2="14" stroke-width="3"/>
-          <line x1="32" y1="36" x2="42" y2="12" stroke-width="5.5"/>
-        </svg>
-      </div>
-      <div class="who"><b>TVA Logistics</b><span>Now</span></div>
+      <img class="brand" src="logo-tva-white.png" alt="TVA Logistics" width="157" height="75">
       <button class="icon-btn" id="mute" aria-label="Turn sound on" aria-pressed="true">
         <svg id="mIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M11 5 6 9H3v6h3l5 4z"/><line x1="22" y1="9" x2="16" y2="15"/><line x1="16" y1="9" x2="22" y2="15"/>
